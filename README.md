@@ -18,6 +18,12 @@ This project is divided in the following key sections:
 - Model Loading and Saving Library: Pickle
 - Web App and Data Visualization: Flask, Plotly
 
+### Source Data
+
+The Source datasets are provided by [Figure Eight](https://www.figure-eight.com/) and are the below
+- disaster_categories.csv: Categories of the messages
+- disaster_messages.csv: Multilingual disaster response messages
+
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
