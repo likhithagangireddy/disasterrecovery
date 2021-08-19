@@ -15,7 +15,7 @@ def load_data(messages_filepath, categories_filepath):
     messages = pd.read_csv(messages_filepath)
     # Read categories data
     categories = pd.read_csv(categories_filepath)
-    
+
     return messages, categories
 
 
@@ -26,32 +26,33 @@ def clean_data(messages, categories):
     Output:
         df: Cleaned dataset
     '''
-    
+
     i = categories.columns.get_loc('categories')
     mycategories2 = categories['categories'].str.split(';',expand=True)
     categories = pd.concat([categories.iloc[:, :i], mycategories2, categories.iloc[:, i+1:]], axis=1)
-      
+
     # Select the first row of the categories dataframe
     row = categories.iloc[0]
-    
+
     # Use this row to extract a list of new column names for categories
- 
+
     category_colnames = row.values[0:]
     category_colnames = [x.split("-")[0] for x in category_colnames[1:]]
     category_colnames =  ['id'] + category_colnames
     # rename the columns of `categories`
     categories.columns = category_colnames
- 
-    
+
+
     for column in categories:
         # set each value to be the last character of the string
         if(column != 'id'):
             categories[column] = categories[column].apply(lambda x : x[-1:])
-    
+
             # convert column from string to numeric
             categories[column] =  categories[column].astype(int)
 
-    df = pd.merge(messages,categories, on=['id'])    
+    df = pd.merge(messages,categories, on=['id'])
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
     df.drop_duplicates(inplace=True)
     return df
 
@@ -61,13 +62,13 @@ def save_data(df, database_filename):
     Input:
         df: cleaned dataset
         database_filename: database name, e.g. DisasterMessages.db
-    Output: 
+    Output:
         A SQLite database
     '''
     engine = create_engine('sqlite:///' + database_filename)
     table_name = database_filename.replace(".db","") + "_table"
     print("Data written to table ",table_name)
-    df.to_sql(table_name, engine, index=False , if_exists='replace')  
+    df.to_sql(table_name, engine, index=False , if_exists='replace')
 
 
 def main():
@@ -81,12 +82,12 @@ def main():
 
         print('Cleaning data...')
         df = clean_data(df1, df2)
-        
+
         print('Saving data...\n    DATABASE: {}'.format(database_filepath))
         save_data(df, database_filepath)
-        
+
         print('Cleaned data saved to database!')
-    
+
     else:
         print('Please provide the filepaths of the messages and categories '\
               'datasets as the first and second argument respectively, as '\

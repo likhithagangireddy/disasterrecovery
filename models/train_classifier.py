@@ -37,7 +37,7 @@ from startverb import StartingVerbExtractor, tokenize
 def load_data(database_filepath):
     """
     Load Data from the SQLlite Database and cleans before creating features, labels and category names.
-    
+
     Arguments:
         database_filepath -> Path to SQLite destination database (e.g. disaster_response_db.db)
     Output:
@@ -48,7 +48,7 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///' + database_filepath)
     table_name = os.path.basename(database_filepath).replace(".db","") + "_table"
     df = pd.read_sql_table(table_name, engine)
-    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
+    #df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
     #Remove child alone as it has all zeros only
     df = df.drop(['child_alone'],axis=1)
     X = df['message']
@@ -77,7 +77,7 @@ def build_model():
 
         ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
     ])
-    
+
     parameters_grid = { 'classifier__estimator__learning_rate': [0.01, 0.05],
               'classifier__estimator__n_estimators': [10, 40]  }
 
@@ -88,7 +88,7 @@ def build_model():
 def evaluate_model(model, X_test, Y_test, category_names):
     '''
     Evaluate model performance using test data
-    Input: 
+    Input:
         model: Model to be evaluated
         X_test: Test data (features)
         Y_test: True lables for Test data
@@ -97,23 +97,23 @@ def evaluate_model(model, X_test, Y_test, category_names):
         Print accuracy and classfication report for each category
     '''
     Y_pred = model.predict(X_test)
-    
+
     # Calculate the accuracy for each of them.
     for i in range(len(category_names)):
         print("Category:", category_names[i],"\n", classification_report(Y_test.iloc[:, i].values, Y_pred[:, i]))
         print('Accuracy of %25s: %.2f' %(category_names[i], accuracy_score(Y_test.iloc[:, i].values, Y_pred[:,i])))
-    
+
 
 
 def save_model(model, model_filepath):
     '''
-    Save model as a pickle file 
-    Input: 
+    Save model as a pickle file
+    Input:
         model: Model to be saved
         model_filepath: path of the output pick file
     Output:
         A pickle file of saved model
-        
+
     '''
     pickle.dump(model, open(model_filepath, "wb"))
 
@@ -124,13 +124,13 @@ def main():
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
-        
+
         print('Building model...')
         model = build_model()
-        
+
         print('Training model...')
         model.fit(X_train, Y_train)
-        
+
         print('Evaluating model...')
         evaluate_model(model, X_test, Y_test, category_names)
 
