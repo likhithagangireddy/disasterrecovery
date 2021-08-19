@@ -30,3 +30,12 @@ This project is divided in the following key sections:
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+<a name="acknowledgement"></a>
+## Acknowledgements
+
+* [Udacity](https://www.udacity.com/) for providing the project idea as part of the Data Science Nanodegree Program
+* [Figure Eight](https://www.figure-eight.com/) for providing the relevant dataset to train the model
