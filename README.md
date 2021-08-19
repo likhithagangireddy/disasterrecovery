@@ -1,6 +1,7 @@
 # Disaster Response Pipeline Project
 
-### Description
+
+## Description
 
 This Project is part of Data Science Nanodegree Program by Udacity in collaboration with Figure Eight. The dataset contains pre-labelled tweet and messages from real-life disaster events. The project aim is to build a Natural Language Processing (NLP) model to categorize messages on a real time basis.
 
@@ -10,7 +11,8 @@ This project is divided in the following key sections:
 2. Build a machine learning pipeline to train the which can classify text message in various categories
 3. Run a web app which can show model results in real time
 
-### Dependencies
+
+## Dependencies
 - Python 3.6+
 - Machine Learning Libraries: NumPy, SciPy, Pandas, Sciki-Learn
 - Natural Language Process Libraries: NLTK
@@ -18,11 +20,13 @@ This project is divided in the following key sections:
 - Model Loading and Saving Library: Pickle
 - Web App and Data Visualization: Flask, Plotly
 
-### Source Data
+
+## Source Data
 
 The Source datasets are provided by [Figure Eight](https://www.figure-eight.com/) and are the below
 - disaster_categories.csv: Categories of the messages
 - disaster_messages.csv: Multilingual disaster response messages
+
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
@@ -37,10 +41,11 @@ The Source datasets are provided by [Figure Eight](https://www.figure-eight.com/
 
 3. Go to http://0.0.0.0:3001/
 
+
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<a name="acknowledgement"></a>
+
 ## Acknowledgements
 
 * [Udacity](https://www.udacity.com/) for providing the project idea as part of the Data Science Nanodegree Program
